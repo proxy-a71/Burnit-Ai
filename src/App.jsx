@@ -10,7 +10,7 @@ const firebaseConfig = {
   appId: "1:97544066120:web:2bd3aceb1c38d200a3347d"
 };
 
-const OPENAI_KEY = import.meta.env.VITE_OPENAI_KEY || '';
+const OPENAI_KEY = process.env.VITE_OPENAI_KEY || '';
 
 const BurnitLogo = ({ className = "w-24 h-24" }) => (
   <img src="/Burnit-logo.png" alt="Logo" className={className} />
@@ -852,12 +852,10 @@ export default function BurnitAI() {
                         <span className={theme === 'Dark' ? 'text-gray-400' : 'text-gray-600'}>Language:</span>
                         <span className={`font-semibold ${theme === 'Dark' ? 'text-gray-200' : 'text-gray-800'}`}>{language}</span>
                       </div>
-                      {profileData.dob && (
-                        <div className="flex justify-between">
-                          <span className={theme === 'Dark' ? 'text-gray-400' : 'text-gray-600'}>Date of Birth:</span>
-                          <span className={`font-semibold ${theme === 'Dark' ? 'text-gray-200' : 'text-gray-800'}`}>{profileData.dob}</span>
-                        </div>
-                      )}
+                      <div className="flex justify-between">
+                        <span className={theme === 'Dark' ? 'text-gray-400' : 'text-gray-600'}>Date of Birth:</span>
+                        <span className={`font-semibold ${theme === 'Dark' ? 'text-gray-200' : 'text-gray-800'}`}>{profileData.dob || 'Not set'}</span>
+                      </div>
                       {profileData.region && (
                         <div className="flex justify-between">
                           <span className={theme === 'Dark' ? 'text-gray-400' : 'text-gray-600'}>Region:</span>
