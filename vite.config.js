@@ -1,10 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
 
 export default defineConfig({
-    plugins: [react()],
-    define: {
-    'process.env': process.env
+  define: {
+    'process.env.OPENAI_API_KEY': JSON.stringify(process.env.OPENAI_API_KEY)
   }
-})
-
+});
