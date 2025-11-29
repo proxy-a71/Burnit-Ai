@@ -414,23 +414,40 @@ export default function BurnitAI() {
       return;
     }
 
-    try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${OPENAI_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            {
-              role: 'user',
-              content: messageContent
-            }
-          ]
-        })
-      });
+try {
+  const response = await fetch('/api/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      message: messageContent
+    })
+  });
+
+  const data = await response.json();
+
+  let assistantResponse = data?.choices?.[0]?.message?.content || 
+    "Sorry, I couldn't generate a response.";
+
+  const assistantMessage = {
+    role: 'assistant',
+    content: assistantResponse
+  };
+
+  const updatedMessages = [...newMessages, assistantMessage];
+  setMessages(updatedMessages);
+  updateChat(currentChatId, updatedMessages);
+  updateChatTitle(currentChatId, updatedMessages);
+
+} catch (error) {
+  console.error('API Error:', error);
+  const errorMessage = {
+    role: 'assistant',
+    content: 'I encountered an error.'
+  };
+  setMessages([...newMessages, errorMessage]);
+}
 
       if (!response.ok) {
         throw new Error(`API Error: ${response.status}`);
