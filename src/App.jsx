@@ -10,7 +10,7 @@ const firebaseConfig = {
   appId: "1:97544066120:web:2bd3aceb1c38d200a3347d"
 };
 
-const OPENAI_KEY = process.env.VITE_OPENAI_KEY || '';
+const apiKey = process.env.OPENAI_API_KEY;
 
 const BurnitLogo = ({ className = "w-24 h-24" }) => (
   <img src="/Burnit-logo.png" alt="Logo" className={className} />
